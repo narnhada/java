@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- MyBatis Mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- member 테이블에 사용되는 SQL 문장들 -->
+<mapper namespace="users">
+	<!-- INSERT:가입 SQL -->
+	<insert id="insert" parameterType="userVo">
+	INSERT INTO member
+			(name, password, email, gender)
+	
+	VALUES(#{name}, #{password}, #{email}, #{gender})
+	
+	</insert>
+	
+	<!-- SELECT: email , password를 가지고 Member 정보를 가져올 수 있는 >> 로그인에 사용 	-->	
+	<select id="selectByEmailAndPassword" parameterType="map" 
+		resultType="userVo">					<!-- 어떤값이 들어 올지 모르므로 hashmap으로 만듬 -->
+	SELECT no, name, email, gender
+	FROM member
+	WHERE email=#{email} AND password=#{password}
+		
+	</select>
+		
+
+</mapper>
+	

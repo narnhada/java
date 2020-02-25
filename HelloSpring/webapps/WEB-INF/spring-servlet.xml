@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- annotation 기반의 Bean 자동 등록 -->
+	<context:annotation-config />
+	<!-- 자동 등록을 위한 패키지 등록 -->
+	<context:component-scan base-package="com.bitacademy.hellospring.controller" />
+	
+	<!-- ViewResolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"/>		
+		
+		<property name="prefix"
+			value="/WEB-INF/views/" />
+			
+		<property name="suffix"
+			value=".jsp" />
+			
+		<property name="order"
+			value="1" />
+			
+		
+		
+	</bean>		
+		
+	<!-- 모든 요청을 DispatcherServlet이 처리하고 있어서
+	정적 자원에 대한 요청도 모두 가로챈다 -->
+	<!-- 정적자원에 대한 요청은 TOMCAT의 기본 서블릿이 처리하도록 위임 -->
+	<mvc:annotation-driven >
+		<!-- ResultType 별 MessageConverter -->		
+		<mvc:message-converters>
+		<!-- html 처리용 컨버터: String 타입에 대응 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+					</list>					
+				</property>
+			</bean>
+			<!-- JSON 처리용 Jackson Converter -->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>				
+				</property>			
+			</bean>
+		</mvc:message-converters>
+	
+	</mvc:annotation-driven>
+	<mvc:default-servlet-handler/>
+	
+	
+</beans>

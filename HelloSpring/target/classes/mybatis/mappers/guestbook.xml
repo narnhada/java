@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis Mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- mybatis configuration에 등록 해야 한다. -->	
+<mapper namespace="guestbook">
+	<!-- guestbook.selectAll로 호출할 수 있고 결과로 guestbookVo를 반환 -->
+	<select id="selectAll" resultType="guestbookVo">				<!-- 쿼리문이므로 select로 만듬 -->
+	SELECT no, name, password, content, regdate
+	FROM guestbook
+	ORDER BY regdate DESC	
+	</select>
+	
+	<!-- 게시물 등록 쿼리 -->
+	<!-- guestbook.insert로 호출 할 수 있고, 
+	쿼리 수행을 위해 guestbookVo객체가 파라미터로 전달되어야 한다 -->
+	<insert id="insert" parameterType="guestbookVo">
+		INSERT INTO guestbook (name, password, content)
+		VALUES(#{name},#{password},#{content})	
+	</insert>
+	
+	<!-- 게시물 삭제 쿼리 -->
+	<!-- guestbook.delete로 호출, guestbookVo 객체를 파라미터로 전달 한다 -->
+	<delete id="delete" parameterType="guestbookVo">
+	DELETE FROM guestbook
+	WHERE no=#{no} AND password=#{password}	
+	</delete>
+	
+	
+	
+</mapper>

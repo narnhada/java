@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis Configuration -->
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<!-- Mybatis 설정 파일 -->
+<configuration>
+	<!-- Vo 객체를 사용할 때,편의성을 위해 별칠을줌 -->  <!-- 패키지 명이 길어서 만듬 -->
+	<typeAliases>
+		<typeAlias alias="guestbookVo"		
+				   type="com.bitacademy.hellospring.repository.GuestbookVo"/>	
+
+		<typeAlias alias="userVo"
+				   type="com.bitacademy.hellospring.repository.UserVo"/>	
+	</typeAliases>
+	
+	<!-- SQL고 Java 객체를 Mapping하기 위한 Mapper 설정들을 명시 -->
+	<mappers>
+		<!-- 매퍼 등록 -->
+		<mapper resource="mybatis/mappers/guestbook.xml" />
+		
+		<mapper resource="mybatis/mappers/users.xml" />
+	</mappers>
+</configuration>
